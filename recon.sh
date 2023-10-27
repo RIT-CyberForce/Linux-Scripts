@@ -65,7 +65,8 @@ basic(){
     sleep $t
 
     echo -e "\n-------------------------\n > Currently Logged In <\n------------------------- "
-    $s who 
+    $s who
+    $s w
     sleep $t
 
     echo -e "\n-------------------\n > login history <\n------------------- "
@@ -116,6 +117,13 @@ verbose(){
     $s ip netns list
     $s ip route
     sleep $t
+
+    echo -e "\n---------------\n > Ips and macs <\n--------------- "
+    ip -c route | grep "default"
+    echo -e ""
+    ip -br -c a
+    echo -e "\n[MAC]"
+    ip -br -c link
 
     echo -e "\n---------------\n > Services <\n--------------- "
     $s find /etc/systemd/system -name "*.service" -exec cat {} + | grep ExecStart | cut -d "=" -f2  | grep -Ev "\!\!" 
